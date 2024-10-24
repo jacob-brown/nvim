@@ -1,6 +1,9 @@
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+-- start tree on startup
+vim.api.nvim_create_autocmd("VimEnter", { command = "silent! Explore" })
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
