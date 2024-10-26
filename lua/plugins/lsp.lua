@@ -77,6 +77,32 @@ return {
         })
         ---- end mason setup
 
+        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+        cmp.setup({
+         -- snippets
+         snippet = {
+                expand = function(args)
+                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                end,
+            },
+
+            --mapping
+            mapping = cmp.mapping.preset.insert({
+                ['<C-m>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ["<C-Space>"] = cmp.mapping.complete(),
+                ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+
+            }),
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' }, -- For luasnip users.
+            }, {
+                { name = 'buffer' },
+            })
+        })
 
         ---------------------
         -- diagnostic

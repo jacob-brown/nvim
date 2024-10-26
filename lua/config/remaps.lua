@@ -1,4 +1,5 @@
 -- TIP: Disable arrow keys in normal mode
+
 vim.keymap.set('n', '<up>', '<cmd>echo " nope... k to move  ↑ "<CR>')
 vim.keymap.set('n', '<left>', '<cmd>echo " nope... h to move ← "<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo " nope... l to move → "<CR>')
@@ -56,3 +57,4 @@ vim.keymap.set('n', 'gd', "<cmd>Telescope lsp_definitions<CR>", { desc = '[G]oto
 vim.keymap.set('n', 'gr', "<cmd>Telescope lsp_references<CR>", { desc = '[G]oto [R]eferences' })
 -- Fuzzy find all the symbols in your current document.
 vim.keymap.set('n', '<leader>ds', "<cmd>Telescope lsp_document_symbols<CR>", { desc = '[D]ocument [S]ymbols' })
+
