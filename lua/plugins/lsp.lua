@@ -32,6 +32,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "gopls",
+                "golangci_lint_ls",
                 "pyright",
                 "templ",
                 "bashls",
@@ -42,7 +43,7 @@ return {
                 "dockerls",
                 "html",
                 "jsonls",
-                "sqlls",
+                "sqlls", 
                 "terraformls",
             },
 
