@@ -42,6 +42,7 @@ return {
                 "docker_compose_language_service",
                 "dockerls",
                 "html",
+                "htmx",
                 "jsonls",
                 "sqlls", 
                 "terraformls",
