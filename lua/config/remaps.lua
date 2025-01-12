@@ -38,9 +38,21 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
--- replace word that you are currently on
+-- Replace all - word that you are currently on
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+-- Forward incremental replace - word that you are currently on (one at a time)
+-- period "." to repeat action
+vim.keymap.set("n", "<leader>sf", "*``cgn")
+
+-- Backward incremental replace - word that you are currently on (one at a time)
+-- period "." to repeat action
+vim.keymap.set("n", "<leader>sb", "#``cgN")
+
+-- Visual mode partial word selection (one at a time)
+-- period "." to repeat action
+-- map same as forward inc. replace as action is the same
+vim.keymap.set("x", "<leader>sf", [[y/\V<C-R>=escape(@",'/\')<CR><CR>Ncgn]])
 -- lsp
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
@@ -52,7 +64,6 @@ vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "[G]oto 
 vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "[D]ocument [S]ymbols" })
 
 -- refactor
-
 vim.keymap.set("x", "<leader>re", ":Refactor extract ")
 vim.keymap.set("x", "<leader>rf", ":Refactor extract_to_file ")
 
@@ -68,3 +79,10 @@ vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
 -- keep tabbing (v mode)
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
+
+-- open issue preview
+vim.keymap.set("n", "<leader>x", ":lua vim.diagnostic.open_float()<CR>")
+
+-- go to next diagnostic error
+vim.keymap.set("n", "nd", vim.diagnostic.goto_next)
+-- vim.keymap.set("n", "nnd", vim.diagnostic.goto_prev)
