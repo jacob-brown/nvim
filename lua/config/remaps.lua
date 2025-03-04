@@ -6,7 +6,8 @@ vim.keymap.set("n", "<right>", '<cmd>echo " nope... l to move → "<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo " nope... j to move ↓ "<CR>')
 
 -- open file tree
-vim.keymap.set("n", "<C-e>", vim.cmd.Ex)
+--vim.keymap.set("n", "<C-e>", vim.cmd.Ex)
+vim.keymap.set("n", "<C-e>", ":Ex<CR>")
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -86,3 +87,10 @@ vim.keymap.set("n", "<leader>x", ":lua vim.diagnostic.open_float()<CR>")
 -- go to next diagnostic error
 vim.keymap.set("n", "nd", vim.diagnostic.goto_next)
 -- vim.keymap.set("n", "nnd", vim.diagnostic.goto_prev)
+
+-- golang add if err != nil statement
+vim.keymap.set(
+    "n",
+    "<leader>ee",
+    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+)
