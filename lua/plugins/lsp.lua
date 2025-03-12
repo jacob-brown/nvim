@@ -47,7 +47,7 @@ return {
                 "sqlls",
                 "terraformls",
                 "tflint",
-                -- "tailwindcss-language-server",
+                "tailwindcss",
             },
             automatic_installation = true,
             -- handler: applies default config to capabilities
