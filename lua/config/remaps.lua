@@ -4,9 +4,6 @@
 -- vim.keymap.set("n", "<right>", '')
 -- vim.keymap.set("n", "<down>", '')
 
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
 -------------------------------------------------------------------------------
 --- file tree
 -------------------------------------------------------------------------------
@@ -22,19 +19,16 @@ vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move focus to the right window"
 vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move focus to the upper window" })
 
-
-vim.keymap.set("n", "<A-Left>", "<C-w>h", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<A-Right>", "<C-w>l", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<A-Down>", "<C-w>j", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<A-Up>", "<C-w>k", { desc = "Move focus to the upper window" })
-
+vim.keymap.set("n", "<leader>w<Left>", "<C-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<leader>w<Right>", "<C-w>l", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<leader>w<Down>", "<C-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<leader>w<Up>", "<C-w>k", { desc = "Move focus to the upper window" })
 
 -- for resizing the current window
 vim.keymap.set("n", "<A-Up>", ":resize -2<CR>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<A-Down>", ":resize +2<CR>", { desc = "Increase window height" })
 vim.keymap.set("n", "<A-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<A-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
-
 
 -- move lines when highlighted and indent
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -111,8 +105,4 @@ vim.keymap.set("n", "nd", vim.diagnostic.goto_next)
 -- vim.keymap.set("n", "nnd", vim.diagnostic.goto_prev)
 
 -- golang add if err != nil statement
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
-)
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
