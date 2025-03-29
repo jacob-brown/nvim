@@ -1,22 +1,40 @@
 -- TIP: Disable arrow keys in normal mode
+-- vim.keymap.set("n", "<up>", "")
+-- vim.keymap.set("n", "<left>", '')
+-- vim.keymap.set("n", "<right>", '')
+-- vim.keymap.set("n", "<down>", '')
 
-vim.keymap.set("n", "<up>", '<cmd>echo " nope... k to move  ↑ "<CR>')
-vim.keymap.set("n", "<left>", '<cmd>echo " nope... h to move ← "<CR>')
-vim.keymap.set("n", "<right>", '<cmd>echo " nope... l to move → "<CR>')
-vim.keymap.set("n", "<down>", '<cmd>echo " nope... j to move ↓ "<CR>')
-
--- open file tree
---vim.keymap.set("n", "<C-e>", vim.cmd.Ex)
-vim.keymap.set("n", "<C-e>", ":Ex<CR>")
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<A-C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<A-C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<A-C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<A-C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-------------------------------------------------------------------------------
+--- file tree
+-------------------------------------------------------------------------------
+vim.keymap.set("n", "\\", ":Neotree toggle<CR>", { silent = true, noremap = true })
+-------------------------------------------------------------------------------
+--- windows
+-------------------------------------------------------------------------------
+-- Key mappings for window navigation
+vim.keymap.set("n", "<A-w>", "<C-w>", { desc = "Window command" }) --allows finger lift
+
+vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move focus to the upper window" })
+
+
+vim.keymap.set("n", "<A-Left>", "<C-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<A-Right>", "<C-w>l", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<A-Down>", "<C-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<A-Up>", "<C-w>k", { desc = "Move focus to the upper window" })
+
+
+-- for resizing the current window
+vim.keymap.set("n", "<A-Up>", ":resize -2<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<A-Down>", ":resize +2<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<A-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<A-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+
 
 -- move lines when highlighted and indent
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -26,7 +44,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("n", "<C-j>", "<C-d>zz")
 vim.keymap.set("n", "<C-k>", "<C-u>zz")
 
--- serach cursor stays in the middle
+-- search cursor stays in the middle
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -54,6 +72,10 @@ vim.keymap.set("n", "<leader>sb", "#``cgN")
 -- period "." to repeat action
 -- map same as forward inc. replace as action is the same
 vim.keymap.set("x", "<leader>sf", [[y/\V<C-R>=escape(@",'/\')<CR><CR>Ncgn]])
+
+-- search and replace
+vim.keymap.set("n", "<leader>sr", ":GrugFar<CR>")
+
 -- lsp
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
