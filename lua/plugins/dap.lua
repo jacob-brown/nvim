@@ -17,22 +17,6 @@ return {
 
 			require("nvim-dap-virtual-text").setup({})
 
-			vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-			vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
-
-			-- Eval var under cursor
-			vim.keymap.set("n", "<space>?", function()
-				require("dapui").eval(nil, { enter = true })
-			end)
-
-			vim.keymap.set("n", "<C-1>", dap.continue)
-			vim.keymap.set("n", "<C-2>", dap.step_into)
-			vim.keymap.set("n", "<C-3>", dap.step_over)
-			vim.keymap.set("n", "<C-4>", dap.step_out)
-			vim.keymap.set("n", "<C-5>", dap.step_back)
-			vim.keymap.set("n", "<C-6>", dap.restart)
-			vim.keymap.set("n", "<C-7>", ui.close) --"<cmd>lua require'dap'.disconnect({ terminateDebuggee = true })<CR>")
-
 			dap.listeners.before.attach.dapui_config = function()
 				ui.open()
 			end

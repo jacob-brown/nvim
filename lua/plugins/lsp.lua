@@ -26,7 +26,11 @@ return {
 
 		require("fidget").setup({})
 
-		-- mason
+		require("luasnip.loaders.from_vscode").lazy_load()
+
+		-----------------------------------------------------------------------
+		--- mason
+		-----------------------------------------------------------------------
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
@@ -35,9 +39,6 @@ return {
 				"pyright",
 				"templ",
 				"bashls",
-				"css_variables",
-				"cssls",
-				"cssmodules_ls",
 				"docker_compose_language_service",
 				"dockerls",
 				"html",
@@ -73,13 +74,13 @@ return {
 						},
 					})
 				end,
-				---------
 			},
 		})
 		---- end mason setup
 
-		local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
+		-----------------------------------------------------------------------
+		--- completions
+		-----------------------------------------------------------------------
 		cmp.setup({
 			-- snippets
 			snippet = {
@@ -88,12 +89,14 @@ return {
 				end,
 			},
 
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
+
 			--mapping
 			mapping = cmp.mapping.preset.insert({
-				["<C-m>"] = cmp.mapping.select_prev_item(cmp_select),
-				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
 				["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 			}),
 			sources = cmp.config.sources({
@@ -104,8 +107,9 @@ return {
 			}),
 		})
 
-		---------------------
+		-----------------------------------------------------------------------
 		-- diagnostic
+		-----------------------------------------------------------------------
 		vim.diagnostic.config({
 			-- update_in_insert = true,
 			float = {

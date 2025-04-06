@@ -27,8 +27,6 @@ return {
 				},
 				delete_to_trash = true,
 			})
-			-- Open parent directory in current window
-			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		end,
 	},
 }

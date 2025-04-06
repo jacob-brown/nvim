@@ -112,6 +112,44 @@ return {
 			vim.keymap.set("n", "<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
+
+			-- Define the function
+			local telescope_go_to_definition = function()
+				-- local builtin = require("telescope.builtin")
+				if vim.bo.filetype == "go" then
+					builtin.lsp_definitions({
+						attach_mappings = function(prompt_bufnr, map)
+							local actions = require("telescope.actions")
+							local action_state = require("telescope.actions.state")
+
+							actions.select_default:replace(function()
+								local selection = action_state.get_selected_entry()
+								if not selection then
+									return
+								end
+
+								actions.close(prompt_bufnr)
+
+								local targetFile = selection.filename
+								local prefix = string.match(targetFile, "(.-)_templ%.go$")
+
+								if prefix then
+									selection.filename = prefix .. ".templ"
+								end
+
+								vim.lsp.util.jump_to_location(selection, "utf-8")
+							end)
+
+							return true
+						end,
+					})
+				else
+					builtin.lsp_definitions()
+				end
+			end
+
+			-- Set the keymap
+			vim.keymap.set("n", "gd", telescope_go_to_definition, { desc = "[G]oto [D]efinition" })
 		end,
 	},
 }
