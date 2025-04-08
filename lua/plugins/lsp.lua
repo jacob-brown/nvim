@@ -1,125 +1,121 @@
+--https://www.youtube.com/watch?v=bTWWFQZqzyI&ab_channel=TJDeVries
+--
+-- :h lspconfig-all
+-- and then search for the install instructions
+--
+-- echo executable('<name of lsp>')
+-- echo executable('tailwindcss-language-server')
+
+-- :LazyDev lsp
+-- will show which lsps are running, which is helpful for
+-- checking things are working as expected!
+
+-- commands like the below allow communication between the lsp and blink
+-- require("lspconfig").lua_ls.setup({ capabilites = capabilities })
+
+--
+-- if returns 1 nvim can access the lsp
+
+-------------------------------------------------------------------------------
+--- UPDATE - not quite functional
+-------------------------------------------------------------------------------
 return {
-	"neovim/nvim-lspconfig",
-	dependencies = {
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/nvim-cmp",
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
-		"j-hui/fidget.nvim",
-	},
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "L3MON4D3/LuaSnip",
+            "j-hui/fidget.nvim",
+            {
+                "folke/lazydev.nvim",
+                opts = {
+                    library = {
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    },
+                },
+            },
+        },
+        config = function()
+            local lspconfig = require("lspconfig")
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-	config = function()
-		-- load required packages
-		local cmp = require("cmp")
-		local cmp_lsp = require("cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
+            -- require("fidget").setup({})
+            -- require("luasnip.loaders.from_vscode").lazy_load()
+            require("mason").setup({
+                ui = {
+                    icons = {
+                        package_installed = "✓",
+                        package_pending = "➜",
+                        package_uninstalled = "✗",
+                    },
+                },
+            })
 
-		require("fidget").setup({})
+            --------------------------------------------------------------
+            -- 1. Install the lsp
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "gopls",
+                    "tailwindcss",
+                    "templ",
+                    "terraformls",
+                    "html",
+                    "htmx",
+                    "pyright",
+                },
+                automatic_installation = true,
+            })
 
-		require("luasnip.loaders.from_vscode").lazy_load()
+            --------------------------------------------------------------
+            -- 2. attach and config
 
-		-----------------------------------------------------------------------
-		--- mason
-		-----------------------------------------------------------------------
-		require("mason").setup()
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"lua_ls",
-				"gopls",
-				"pyright",
-				"templ",
-				"bashls",
-				"docker_compose_language_service",
-				"dockerls",
-				"html",
-				"htmx",
-				"jsonls",
-				"sqlls",
-				"terraformls",
-				"tflint",
-				"tailwindcss",
-			},
-			automatic_installation = true,
-			-- handler: applies default config to capabilities
-			handlers = {
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
+            --lua
+            lspconfig.lua_ls.setup({ capabilites = capabilities })
 
-				-- overwrite with specific capabilities
+            --go
+            lspconfig.gopls.setup({ capabilites = capabilities })
 
-				["lua_ls"] = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.lua_ls.setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								runtime = { version = "Lua 5.1" },
-								diagnostics = {
-									globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-								},
-							},
-						},
-					})
-				end,
-			},
-		})
-		---- end mason setup
+            -- tailwind
+            lspconfig.tailwindcss.setup({ capabilites = capabilities })
 
-		-----------------------------------------------------------------------
-		--- completions
-		-----------------------------------------------------------------------
-		cmp.setup({
-			-- snippets
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-				end,
-			},
+            -- templ
+            lspconfig.templ.setup({ capabilites = capabilities })
 
-			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
-			},
+            --terraform
+            lspconfig.terraformls.setup({ capabilites = capabilities })
+            --TODO: terraform-lsp might be also a good one to install?
 
-			--mapping
-			mapping = cmp.mapping.preset.insert({
-				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-			}),
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" }, -- For luasnip users.
-			}, {
-				{ name = "buffer" },
-			}),
-		})
+            --html
+            lspconfig.html.setup({ capabilites = capabilities })
 
-		-----------------------------------------------------------------------
-		-- diagnostic
-		-----------------------------------------------------------------------
-		vim.diagnostic.config({
-			-- update_in_insert = true,
-			float = {
-				focusable = false,
-				style = "minimal",
-				border = "rounded",
-				source = "always",
-				header = "",
-				prefix = "",
-			},
-		})
-	end,
+            --htmx
+            lspconfig.htmx.setup({ capabilites = capabilities })
+
+            --python
+            lspconfig.pyright.setup({ capabilites = capabilities })
+
+            --------------------------------------------------------------
+            --attaching the lsp
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local c = vim.lsp.get_client_by_id(args.data.client_id)
+                    if not c then
+                        return
+                    end
+
+                    if vim.bo.filetype == "lua" then
+                        -- Format the current buffer on save
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = args.buf,
+                            callback = function()
+                                vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
+                            end,
+                        })
+                    end
+                end,
+            })
+        end,
+    },
 }

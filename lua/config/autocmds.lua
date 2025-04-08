@@ -1,15 +1,15 @@
--- start telescope at start
+-- startup
 vim.api.nvim_create_autocmd("VimEnter", {
+	pattern = "*",
 	callback = function()
+		-- no vim args start tele
 		if vim.fn.argv(0) == "" then
 			require("telescope.builtin").find_files()
 		end
+		-- vim.cmd("NoNeckPain")
 	end,
 })
-
 -- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),

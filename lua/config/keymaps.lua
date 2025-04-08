@@ -140,7 +140,7 @@ set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List
 -------------------------------------------------------------------------------
 --- misc
 -------------------------------------------------------------------------------
-set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "[u]ndo tree" })
+set("n", "<leader>u", vim.cmd.UndotreVeToggle, { desc = "[u]ndo tree" })
 
 -------------------------------------------------------------------------------
 --- code specific remaps
