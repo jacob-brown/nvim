@@ -13,8 +13,6 @@
 - better tmux and window integration
     - https://github.com/alexghergh/nvim-tmux-navigation
     - https://github.com/aserowy/tmux.nvim
-
-
-no neck pain on load?
+- no neck pain on load?
     - no luck
-vertical vim help
+- harpoon - open vert

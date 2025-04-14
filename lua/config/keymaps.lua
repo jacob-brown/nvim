@@ -97,7 +97,7 @@ end, { desc = "[G]oto [D]efinition [V]ertical Split" })
 -------------------------------------------------------------------------------
 --- refactor
 -------------------------------------------------------------------------------
-set("x", "<leader>re", ":Refactor extraet")
+set("x", "<leader>re", ":Refactor extract")
 set("x", "<leader>rf", ":Refactor extract_to_file ")
 set("x", "<leader>rv", ":Refactor extract_var ")
 set({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
@@ -140,7 +140,8 @@ set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List
 -------------------------------------------------------------------------------
 --- misc
 -------------------------------------------------------------------------------
-set("n", "<leader>u", vim.cmd.UndotreVeToggle, { desc = "[u]ndo tree" })
+set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "[u]ndo tree" })
+set("n", "<leader>nn", "<cmd>NoNeckPain<cr>", { desc = "[N]o [N]eck Pain" })
 
 -------------------------------------------------------------------------------
 --- code specific remaps
