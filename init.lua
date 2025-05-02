@@ -10,7 +10,7 @@ require("config.keymaps")
 require("config.options")
 require("config.autocmds")
 require("config.lazy")
-
+require("config.diagnostics")
 -- colour scheme
 -- must be called before loading
 vim.cmd.colorscheme("kanagawa-wave")

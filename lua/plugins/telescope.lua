@@ -1,6 +1,5 @@
 -- Fuzzy Finder (files, lsp, etc)
 -- https://github.com/nvim-telescope/telescope.nvim
-
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -68,7 +67,7 @@ return {
 							"!**/.git/*",
 							"--glob",
 							"!**/.terraform/*",
-							"--no-ignore",
+							-- "--no-ignore",
 						},
 					},
 				},
@@ -137,7 +136,8 @@ return {
 									selection.filename = prefix .. ".templ"
 								end
 
-								vim.lsp.util.jump_to_location(selection, "utf-8")
+								vim.lsp.util.show_document(selection, "utf-8", { focus = true })
+								-- vim.lsp.util.jump_to_location(selection, "utf-8")
 							end)
 
 							return true

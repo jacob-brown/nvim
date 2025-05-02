@@ -89,9 +89,9 @@ set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "[G]oto [D]efiniti
 set("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "[G]oto [R]eferences" })
 
 set("n", "gv", function()
-	require("telescope.builtin").lsp_definitions({
-		jump_type = "vsplit",
-	})
+    require("telescope.builtin").lsp_definitions({
+        jump_type = "vsplit",
+    })
 end, { desc = "[G]oto [D]efinition [V]ertical Split" })
 
 -------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ set("n", "<leader>dt", ":DapTerminate<CR>", { desc = "[c]lose" })
 
 -- Eval var under cursor
 set("n", "<leader>de", function()
-	require("dapui").eval(nil, { enter = true })
+    require("dapui").eval(nil, { enter = true })
 end, { desc = "[e]valuate" })
 
 -------------------------------------------------------------------------------
@@ -129,10 +129,10 @@ set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnost
 set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
 set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
 set(
-	"n",
-	"<leader>cl",
-	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-	{ desc = "LSP Definitions / references / ... (Trouble)" }
+    "n",
+    "<leader>cl",
+    "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+    { desc = "LSP Definitions / references / ... (Trouble)" }
 )
 set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
