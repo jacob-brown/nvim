@@ -80,4 +80,4 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 -- add vertical line for char length
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"

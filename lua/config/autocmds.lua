@@ -1,14 +1,14 @@
 -- startup
-vim.api.nvim_create_autocmd("VimEnter", {
-	pattern = "*",
-	callback = function()
-		-- no vim args start tele
-		if vim.fn.argv(0) == "" then
-			require("telescope.builtin").find_files()
-		end
-		-- vim.cmd("NoNeckPain")
-	end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		-- no vim args start tele
+-- 		if vim.fn.argv(0) == "" then
+-- 			require("telescope.builtin").find_files()
+-- 		end
+-- 		-- vim.cmd("NoNeckPain")
+-- 	end,
+-- })
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "terraform", "hcl" },
 })
 
---fix templ and hcl comment string
+--fix templ comment string
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("FixTemplCommentString", { clear = true }),
 	callback = function(ev)
